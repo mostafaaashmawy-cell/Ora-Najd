@@ -43,7 +43,7 @@ app.post('/api/submit', (req, res) => {
         html: `
             <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #c9aa71;border-radius:8px;background:#fafafa;">
                 <div style="text-align:center;border-bottom:2px solid #c9aa71;padding-bottom:15px;margin-bottom:20px;">
-                    <h2 style="color:#07090e;margin:0;font-size:24px;letter-spacing:2px;">ORA NAJD — HASSAN ALLAM PROPERTIES</h2>
+                    <h2 style="color:#07090e;margin:0;font-size:24px;letter-spacing:2px;">ORA NAJD — EGY-PROPERTIES</h2>
                     <p style="color:#777;margin:5px 0 0;font-size:12px;">New Property Lead Captured</p>
                 </div>
                 <h3 style="color:#c9aa71;margin-top:0;">Lead Details</h3>
@@ -65,7 +65,7 @@ app.post('/api/submit', (req, res) => {
                     <strong>Action Required:</strong> Please contact this lead immediately. Click the phone link above to chat on WhatsApp.
                 </div>
                 <div style="text-align:center;margin-top:30px;border-top:1px solid #eee;padding-top:15px;font-size:11px;color:#999;">
-                    &copy; 2026 Hassan Allam Properties — ORA Najd Landing Page
+                    &copy; 2026 EGY-PROPERTIES — ORA Najd Landing Page
                 </div>
             </div>
         `
