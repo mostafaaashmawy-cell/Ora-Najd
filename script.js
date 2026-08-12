@@ -1,6 +1,6 @@
 /**
  * ORA Najd Landing Page — Script
- * Author: egy-properties
+ * Author: propertiesegy
  * Date: 2026-08-12
  */
 
