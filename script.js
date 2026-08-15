@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initGalleries();
     initFormHandling();
+    initWhatsAppTracking();
 });
 
 /* ==========================================================================
@@ -218,6 +219,10 @@ function initFormHandling() {
             const result = await response.json();
 
             if (result.success) {
+                // Fire Google Ads conversion tracking for form submission
+                if (typeof gtag_report_conversion === 'function') {
+                    gtag_report_conversion();
+                }
                 resetForm();
                 openModal();
             } else {
@@ -242,3 +247,22 @@ function initFormHandling() {
         if (spinner) spinner.style.display = 'none';
     }
 }
+
+/* ==========================================================================
+   WhatsApp Click Tracking (Google Ads Conversion)
+   ========================================================================== */
+function initWhatsAppTracking() {
+    const waLinks = document.querySelectorAll('a[href*="wa.me"]');
+    waLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-299139259/IttmCOi8ieIcELuB0o4B',
+                    'value': 1.0,
+                    'currency': 'EGP'
+                });
+            }
+        });
+    });
+}
+

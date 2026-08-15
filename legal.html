@@ -8,7 +8,37 @@
   <meta name="description" content="Terms and Conditions and Privacy Policy for propertiesegy — ORA Najd real estate landing page." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-299139259"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-299139259');
+  </script>
+
+  <!-- Event snippet for Ora Ashmawy conversion page -->
+  <script>
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined' && url) {
+        window.location = url;
+      }
+    };
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+          'send_to': 'AW-299139259/IttmCOi8ieIcELuB0o4B',
+          'value': 1.0,
+          'currency': 'EGP',
+          'event_callback': callback
+      });
+    } else {
+      callback();
+    }
+    return false;
+  }
+  </script>
   <style>
     :root {
       --bg:       #FAF8F5;
