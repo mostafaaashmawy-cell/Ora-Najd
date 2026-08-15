@@ -169,22 +169,23 @@ function initFormHandling() {
             return;
         }
 
-        // --- Normalize Egyptian phone number ---
-        let cleanPhone = phoneInput.value.trim().replace(/[\s\-\(\)]/g, '');
-        if (cleanPhone.startsWith('+20'))       { /* already formatted */ }
-        else if (cleanPhone.startsWith('0020')) { cleanPhone = '+' + cleanPhone.slice(2); }
-        else if (cleanPhone.startsWith('20'))   { cleanPhone = '+' + cleanPhone; }
-        else if (cleanPhone.startsWith('01'))   { cleanPhone = '+20' + cleanPhone.slice(1); }
-        else if (cleanPhone.startsWith('1'))    { cleanPhone = '+20' + cleanPhone; }
-        else {
-            showToast('Invalid number', 'Please enter a valid Egyptian mobile number (e.g. 01xxxxxxxxx).', 3500);
-            phoneInput.focus();
-            return;
+        // --- Normalize mobile number for any country ---
+        let cleanPhone = phoneInput.value.trim().replace(/[\s\-\(\)\.]/g, '');
+
+        // Convert leading 00 to +
+        if (cleanPhone.startsWith('00')) {
+            cleanPhone = '+' + cleanPhone.slice(2);
         }
 
-        const egPhoneRegex = /^\+201[0125][0-9]{8}$/;
-        if (!egPhoneRegex.test(cleanPhone)) {
-            showToast('Invalid number', 'Please enter a valid Egyptian mobile number (e.g. 01xxxxxxxxx).', 3500);
+        // Convenience auto-format for local Egyptian numbers (e.g. 010..., 011..., 012..., 015...)
+        if (/^01[0125][0-9]{8}$/.test(cleanPhone)) {
+            cleanPhone = '+20' + cleanPhone.slice(1);
+        }
+
+        // Validate international phone number: 6 to 15 digits, optional leading +
+        const globalPhoneRegex = /^\+?[0-9]{6,15}$/;
+        if (!globalPhoneRegex.test(cleanPhone)) {
+            showToast('Invalid number', 'Please enter a valid mobile number with country code.', 4000);
             phoneInput.focus();
             return;
         }
