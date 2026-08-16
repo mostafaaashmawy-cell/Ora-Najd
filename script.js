@@ -169,29 +169,45 @@ function initFormHandling() {
             return;
         }
 
-        // --- Normalize mobile number for any country ---
-        let cleanPhone = phoneInput.value.trim().replace(/[\s\-\(\)\.]/g, '');
+        const countryCodeSelect = document.getElementById('country-code');
+        const selectedCode = countryCodeSelect ? countryCodeSelect.value : '+20';
+
+        // --- Clean input ---
+        let rawPhone = phoneInput.value.trim().replace(/[\s\-\(\)\.]/g, '');
 
         // Convert leading 00 to +
-        if (cleanPhone.startsWith('00')) {
-            cleanPhone = '+' + cleanPhone.slice(2);
+        if (rawPhone.startsWith('00')) {
+            rawPhone = '+' + rawPhone.slice(2);
         }
 
-        // Convenience auto-format for local Egyptian numbers (e.g. 010..., 011..., 012..., 015...)
-        if (/^01[0125][0-9]{8}$/.test(cleanPhone)) {
-            cleanPhone = '+20' + cleanPhone.slice(1);
+        let fullPhone = '';
+        if (rawPhone.startsWith('+')) {
+            // User entered their own country code with leading +
+            fullPhone = rawPhone;
+        } else {
+            // Strip leading zero if present for international prepending (e.g. 05x -> 5x for KSA/UAE)
+            // But keep leading zero if Egyptian 01x with +20 prefix (e.g. 010... -> +2010...)
+            let numberBody = rawPhone;
+            if (selectedCode === '+20' && numberBody.startsWith('01')) {
+                numberBody = numberBody.slice(1); // 01020958859 -> 1020958859
+            } else if (numberBody.startsWith('0') && selectedCode !== '+') {
+                numberBody = numberBody.slice(1);
+            }
+
+            const codePrefix = selectedCode === '+' ? '+' : selectedCode;
+            fullPhone = codePrefix + numberBody;
         }
 
-        // Validate international phone number: 6 to 15 digits, optional leading +
-        const globalPhoneRegex = /^\+?[0-9]{6,15}$/;
-        if (!globalPhoneRegex.test(cleanPhone)) {
-            showToast('Invalid number', 'Please enter a valid mobile number with country code.', 4000);
+        // Validate international phone number format: 7 to 15 digits
+        const globalPhoneRegex = /^\+?[0-9]{7,15}$/;
+        if (!globalPhoneRegex.test(fullPhone)) {
+            showToast('Invalid number', 'Please enter a valid mobile number.', 4000);
             phoneInput.focus();
             return;
         }
 
-        // --- Update phone field with normalized value ---
-        phoneInput.value = cleanPhone;
+        // --- Update phone field with full international number ---
+        phoneInput.value = fullPhone;
 
         // --- Show loading state ---
         submitBtn.disabled = true;

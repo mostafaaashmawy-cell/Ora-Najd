@@ -109,10 +109,31 @@
               <span>Full Name</span>
               <input type="text" name="name" id="name" autocomplete="name" required placeholder=" " />
             </label>
-            <label class="form-field">
+            <div class="form-field">
               <span>Mobile Number</span>
-              <input type="tel" name="phone" id="phone" autocomplete="tel" required placeholder=" " />
-            </label>
+              <div class="phone-group">
+                <select id="country-code" aria-label="Country Code">
+                  <option value="+20" selected>🇪🇬 +20 (Egypt)</option>
+                  <option value="+966">🇸🇦 +966 (KSA)</option>
+                  <option value="+971">🇦🇪 +971 (UAE)</option>
+                  <option value="+965">🇰🇼 +965 (Kuwait)</option>
+                  <option value="+974">🇶🇦 +974 (Qatar)</option>
+                  <option value="+968">🇴🇲 +968 (Oman)</option>
+                  <option value="+973">🇧🇭 +973 (Bahrain)</option>
+                  <option value="+44">🇬🇧 +44 (UK)</option>
+                  <option value="+1">🇺🇸 +1 (USA/Can)</option>
+                  <option value="+49">🇩🇪 +49 (Germany)</option>
+                  <option value="+33">🇫🇷 +33 (France)</option>
+                  <option value="+39">🇮🇹 +39 (Italy)</option>
+                  <option value="+7">🇷🇺 +7 (Russia)</option>
+                  <option value="+90">🇹🇷 +90 (Turkey)</option>
+                  <option value="+961">🇱🇧 +961 (Lebanon)</option>
+                  <option value="+962">🇯🇴 +962 (Jordan)</option>
+                  <option value="+">🌐 Other (+)</option>
+                </select>
+                <input type="tel" name="phone" id="phone" autocomplete="tel" required placeholder="01xxxxxxxxx" />
+              </div>
+            </div>
           </div>
 
           <button type="submit" class="btn-submit" id="submit-btn">
